@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemathchandran - Ultimate Embedded Systems Portfolio</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- PRELOADER WITH VISIBLE PROGRESS -->
+    <div id="preloader">
+        <div class="loader">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+
+        <div class="loader-text">
+            <span>H</span>
+            <span>E</span>
+            <span>M</span>
+            <span>A</span>
+            <span>T</span>
+            <span>H</span>
+            <span>C</span>
+            <span>H</span>
+            <span>A</span>
+            <span>N</span>
+            <span>D</span>
+            <span>R</span>
+            <span>A</span>
+            <span>N</span>
+        </div>
+        
+        <div class="loader-subtitle" id="loading-status">Initializing Embedded World...</div>
+        
+        <!-- PROGRESS BAR WITH PERCENTAGE -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-percentage" id="progress-percentage">0%</div>
+        </div>
+        
+        <!-- LOADING DETAILS -->
+        <div class="loading-details" id="loading-details">
+            <div>🔌 Loading modules...</div>
+        </div>
+        
+        <!-- FALLBACK BUTTON (visible after 10 seconds) -->
+        <button id="fallback-start" class="fallback-button" style="display: none;">🚗 START MANUALLY</button>
+    </div>
+
+    <!-- MAIN UI CONTAINER -->
+    <div id="ui-container" style="display: none;">
+        <!-- HUD -->
+        <div id="hud">
+            <div class="hud-top">
+                <div class="hud-left">
+                    <div class="hud-card">
+                        <div class="card-icon">⚡</div>
+                        <div class="card-info">
+                            <span class="label">SPEED</span>
+                            <span class="value" id="speed-value">0</span>
+                            <span class="unit">KM/H</span>
+                        </div>
+                    </div>
+                    <div class="hud-card">
+                        <div class="card-icon">🔋</div>
+                        <div class="card-info">
+                            <span class="label">BATTERY</span>
+                            <span class="value" id="battery-value">100</span>
+                            <span class="unit">%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hud-center">
+                    <div class="compass">
+                        <div class="compass-ring">
+                            <div class="compass-needle" id="compass-needle">⬆️</div>
+                        </div>
+                        <div class="coordinates" id="coordinates">0 , 0</div>
+                    </div>
+                </div>
+                <div class="hud-right">
+                    <div class="hud-card">
+                        <div class="card-icon">⏱️</div>
+                        <div class="card-info">
+                            <span class="label">TIME</span>
+                            <span class="value" id="time-value">12:00</span>
+                        </div>
+                    </div>
+                    <div class="hud-card">
+                        <div class="card-icon">🌤️</div>
+                        <div class="card-info">
+                            <span class="label">WEATHER</span>
+                            <span class="value" id="weather-value">CLEAR</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FPS Counter -->
+        <div id="fps-counter">FPS: 0</div>
+
+        <!-- CONTROL PANEL -->
+        <div id="control-panel">
+            <button class="control-btn" id="btn-mute" title="Mute">🔊</button>
+            <button class="control-btn" id="btn-horn" title="Horn">📢</button>
+            <button class="control-btn" id="btn-lights" title="Headlights">💡</button>
+            <button class="control-btn" id="btn-night" title="Night Mode">🌙</button>
+            <button class="control-btn" id="btn-radio" title="Radio">📻</button>
+            <button class="control-btn" id="btn-camera" title="Camera View">📷</button>
+            <button class="control-btn" id="btn-map" title="Map">🗺️</button>
+            <button class="control-btn" id="btn-quests" title="Quests">🎯</button>
+            <button class="control-btn" id="btn-achievements" title="Achievements">🏆</button>
+            <button class="control-btn" id="btn-voice" title="Voice Control">🎤</button>
+            <button class="control-btn" id="btn-help" title="Help">❓</button>
+            <button class="control-btn" id="btn-reset" title="Reset">🔄</button>
+            <button class="control-btn" id="btn-tour" title="Self-Guided Tour">🚗</button>
+        </div>
+
+        <!-- QUEST TRACKER -->
+        <div id="quest-tracker">
+            <div class="tracker-header">
+                <span>ACTIVE QUESTS</span>
+                <span class="progress" id="quest-progress">0/6</span>
+            </div>
+            <div class="quest-list" id="quest-list">
+                <div class="quest-item incomplete" data-quest="education">
+                    <span class="quest-icon">🎓</span>
+                    <span class="quest-name">Knowledge Seeker</span>
+                </div>
+                <div class="quest-item incomplete" data-quest="skills">
+                    <span class="quest-icon">⚡</span>
+                    <span class="quest-name">Skill Master</span>
+                </div>
+                <div class="quest-item incomplete" data-quest="experience">
+                    <span class="quest-icon">💼</span>
+                    <span class="quest-name">Industry Expert</span>
+                </div>
+                <div class="quest-item incomplete" data-quest="projects">
+                    <span class="quest-icon">🔧</span>
+                    <span class="quest-name">Project Pioneer</span>
+                </div>
+                <div class="quest-item incomplete" data-quest="achievements">
+                    <span class="quest-icon">🏆</span>
+                    <span class="quest-name">Achievement Hunter</span>
+                </div>
+                <div class="quest-item incomplete" data-quest="contact">
+                    <span class="quest-icon">📞</span>
+                    <span class="quest-name">Networker</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACHIEVEMENTS PANEL -->
+        <div id="achievements-panel">
+            <div class="panel-header">🏆 ACHIEVEMENTS</div>
+            <div class="badge-container" id="badge-container">
+                <div class="badge locked" data-badge="education">🎓</div>
+                <div class="badge locked" data-badge="skills">⚡</div>
+                <div class="badge locked" data-badge="experience">💼</div>
+                <div class="badge locked" data-badge="projects">🔧</div>
+                <div class="badge locked" data-badge="achievements">🏆</div>
+                <div class="badge locked" data-badge="contact">📞</div>
+                <div class="badge locked" data-badge="collector">🔌</div>
+                <div class="badge locked" data-badge="explorer">🌍</div>
+                <div class="badge locked" data-badge="all">🌟</div>
+            </div>
+        </div>
+
+        <!-- TERMINAL CONSOLE -->
+        <div id="terminal">
+            <div class="terminal-header">
+                <span>SYSTEM CONSOLE</span>
+                <span class="terminal-clear" id="terminal-clear">🗑️</span>
+            </div>
+            <div class="terminal-content" id="terminal-content">
+                <div class="terminal-line">> System initializing...</div>
+            </div>
+        </div>
+
+        <!-- TOUCH CONTROLS -->
+        <div id="touch-controls">
+            <button class="touch-btn" id="touch-up">⬆️</button>
+            <button class="touch-btn" id="touch-left">⬅️</button>
+            <button class="touch-btn" id="touch-down">⬇️</button>
+            <button class="touch-btn" id="touch-right">➡️</button>
+        </div>
+
+        <!-- WELCOME MODAL -->
+        <div id="welcome-modal" class="modal">
+            <div class="modal-content glass">
+                <h1>🚗 WELCOME, EXPLORER</h1>
+                <p>Before entering the world of <span class="highlight">Hemathchandran</span>, please identify yourself:</p>
+                <input type="text" id="visitor-name" placeholder="Your Name" class="glass-input">
+                <input type="email" id="visitor-email" placeholder="Your Email" class="glass-input">
+                <div class="interest-tags">
+                    <span class="interest-tag" data-interest="embedded">Embedded</span>
+                    <span class="interest-tag" data-interest="iot">IoT</span>
+                    <span class="interest-tag" data-interest="robotics">Robotics</span>
+                    <span class="interest-tag" data-interest="pcb">PCB Design</span>
+                </div>
+                <button id="btn-start" class="glass-button">BEGIN JOURNEY</button>
+            </div>
+        </div>
+
+        <!-- INFO MODAL -->
+        <div id="info-modal" class="modal">
+            <div class="modal-content glass">
+                <div id="info-content"></div>
+                <button id="btn-close-info" class="glass-button">CLOSE</button>
+            </div>
+        </div>
+
+        <!-- MAP MODAL -->
+        <div id="map-modal" class="modal">
+            <div class="modal-content glass map-modal">
+                <h2>🗺️ WORLD MAP</h2>
+                <canvas id="minimap-canvas" width="400" height="300"></canvas>
+                <div class="map-legend">
+                    <div><span class="dot blue"></span> Education</div>
+                    <div><span class="dot red"></span> Skills</div>
+                    <div><span class="dot green"></span> Experience</div>
+                    <div><span class="dot yellow"></span> Projects</div>
+                    <div><span class="dot orange"></span> Achievements</div>
+                    <div><span class="dot purple"></span> Contact</div>
+                </div>
+                <button id="btn-close-map" class="glass-button">CLOSE</button>
+            </div>
+        </div>
+
+        <!-- VOICE MODAL -->
+        <div id="voice-modal" class="modal">
+            <div class="modal-content glass voice-modal">
+                <div class="voice-icon">🎤</div>
+                <div class="voice-text" id="voice-text">Listening...</div>
+                <div class="voice-commands">
+                    <div>"go to education"</div>
+                    <div>"show projects"</div>
+                    <div>"night mode"</div>
+                    <div>"start tour"</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HELP MODAL -->
+        <div id="help-modal" class="modal">
+            <div class="modal-content glass">
+                <h2>❓ CONTROLS & TIPS</h2>
+                <div class="help-grid">
+                    <div><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> Drive</div>
+                    <div><kbd>SPACE</kbd> Brake</div>
+                    <div><kbd>SHIFT</kbd> Boost</div>
+                    <div><kbd>R</kbd> Radio</div>
+                    <div><kbd>L</kbd> Lights</div>
+                    <div><kbd>M</kbd> Map</div>
+                    <div><kbd>Q</kbd> Quests</div>
+                    <div><kbd>V</kbd> Voice</div>
+                    <div><kbd>C</kbd> Camera</div>
+                    <div><kbd>H</kbd> Horn</div>
+                </div>
+                <p>🎯 Drive close to colored buildings to complete quests!</p>
+                <button id="btn-close-help" class="glass-button">GOT IT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FALLBACK SCRIPT - FIXED VERSION -->
+    <script>
+        // Fallback to show manual start button if loading takes too long
+        setTimeout(() => {
+            const preloader = document.getElementById('preloader');
+            const fallbackBtn = document.getElementById('fallback-start');
+            if (preloader && preloader.style.display !== 'none') {
+                fallbackBtn.style.display = 'block';
+                const details = document.getElementById('loading-details');
+                if (details) {
+                    const warningDiv = document.createElement('div');
+                    warningDiv.style.color = '#ffaa00';
+                    warningDiv.textContent = '⚠️ Loading timeout. Click button to continue.';
+                    details.appendChild(warningDiv);
+                }
+            }
+        }, 10000);
+        
+        // Manual start
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'fallback-start') {
+                const preloader = document.getElementById('preloader');
+                const uiContainer = document.getElementById('ui-container');
+                if (preloader) preloader.style.display = 'none';
+                if (uiContainer) uiContainer.style.display = 'block';
+                
+                // Try to initialize app if not already done
+                if (!window.app) {
+                    import('./main.js').then(module => {
+                        if (module.Application) {
+                            window.app = new module.Application();
+                        }
+                    }).catch(err => {
+                        console.error('Failed to load app:', err);
+                    });
+                }
+            }
+        });
+    </script>
+
+    <!-- MAIN SCRIPT -->
+    <script type="module" src="/main.js"></script>
+</body>
+</html>
