@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import glsl from 'vite-plugin-glsl';
+import path from 'path';
 
 export default defineConfig({
   root: 'src',
@@ -10,12 +11,18 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       input: {
-        main: 'src/index.html'
+        main: path.resolve(__dirname, 'src/index.html')
       }
     }
   },
   server: {
-    port: 3000
+    port: 3000,
+    open: true
   },
-  plugins: [glsl()]
+  plugins: [glsl()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
+  }
 });

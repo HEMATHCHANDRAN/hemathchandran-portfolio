@@ -1,11 +1,12 @@
 services:
   - type: web
-    name: hemath-portfolio-backend
-    env: node
-    buildCommand: cd src/server && npm install
+    name: hemathchandran-portfolio
+    runtime: node
+    plan: free
+    buildCommand: chmod +x render-build.sh && ./render-build.sh
     startCommand: cd src/server && node index.js
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 3001
+        value: 10000
