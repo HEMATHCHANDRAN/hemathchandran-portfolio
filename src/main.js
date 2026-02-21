@@ -13,7 +13,7 @@ import { VoiceControl } from './js/core/VoiceControl.js';
 import { ParticleSystem } from './js/core/ParticleSystem.js';
 import { QuestSystem } from './js/quests/QuestSystem.js';
 import { Multiplayer } from './js/multiplayer/Multiplayer.js';
-import { resumeData } from './js/data/ResumeData.js';
+import { resumeData } from './js/data/resumeData.js';
 
 // Import entities
 import { Car } from './js/entities/Car.js';
